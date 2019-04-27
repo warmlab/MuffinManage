@@ -1,0 +1,163 @@
+<form bindsubmit="saveProduct">
+  <!--view class="form-line" wx:if="{{false}}">
+    <text>产品封面</text>
+    <image mode="widthFix" src="{{banner_image.path?banner_image.path: '/images/add.png'}}" bindtap="chooseBanner" />
+  </view>
+  <view class="flex-row">
+            <label class="label">产品编码</label>
+            <input name="code" placeholder="请输入产品编码" disabled="{{code!=undefined}}" value="{{product.code}}"/>
+        </view> -->
+  <view class="form-line">
+    <text class="title">产品名称</text>
+    <input name="name" placeholder="请输入产品名称" value="{{product.name}}" />
+  </view>
+  <view class="form-line">
+    <text class="title">英文名称</text>
+    <input name="english_name" placeholder="请输入产品英文名称" value="{{product.english_name}}" />
+  </view>
+  <view class="form-line">
+    <text class="title">产品摘要</text>
+    <textarea name="summary" placeholder="产品摘要" value="{{product.summary}}" maxlength="512" />
+  </view>
+  <view class="form-line">
+    <text class="title">产品分类</text>
+    <radio-group bindchange="categoryChange" class="flex-column">
+      <label class="radio" wx:for="{{categories}}" wx:key="id">
+        <radio value="{{index}}" checked="{{product.category.id===item.id}}" />
+        {{item.name}}
+      </label>
+    </radio-group>
+  </view>
+  <!-- view class="form-line">
+    <text>生产日期</text>
+    <input name="from_date" placeholder="2019-1-23" type="date" value="{{product.from_date}}" />
+  </view>
+  <view class="form-line">
+    <text>净重（单位：克）</text>
+    <input name="weight" placeholder="500" type="number" value="{{product.weight}}" />
+  </view>
+  <view class="form-line">
+    <text>包装方式</text>
+    <radio-group class="radio-group flex-column" bindchange="wrapTypeChange">
+      <label class="radio">
+        <radio value="1" size="small" checked="{{wrap_type==1}}" />
+        散装
+      </label>
+      <label class="radio">
+        <radio value="2" size="small" checked="{{wrap_type==2}}" />
+        包装
+      </label>
+    </radio-group>
+  </view -->
+  <view class="form-line">
+    <text class="title">现有库存</text>
+    <input name="stock" placeholder="100" type="number" value="{{product.stock}}" />
+  </view>
+  <!--view class="form-line">
+    <text>原始价格</text>
+    <input name="original_price" type="digit" placeholder="产品原始售价" wx:if="{{product}}" value="{{product.original_price/100}}" />
+    <input name="original_price" type="digit" placeholder="产品原始售价" wx:else />
+  </view-->
+  <view class="form-line">
+    <text class="title">价格</text>
+    <input name="price" type="digit" placeholder="产品售价" wx:if="{{product}}" value="{{product.price/100}}" />
+    <input name="price" type="digit" placeholder="产品售价" wx:else />
+  </view>
+  <view class="form-line">
+    <text class="title">会员价格</text>
+    <input name="member_price" type="digit" placeholder="产品会员价格" wx:if="{{product&&product.member_price}}" value="{{product.member_price/100}}" />
+    <input name="member_price" type="digit" placeholder="产品会员价格" wx:else />
+  </view>
+  <view class="form-line">
+    <text class="title">团购价格</text>
+    <input name="promote_price" type="digit" placeholder="产品团购价格" wx:if="{{product}}" value="{{product.promote_price/100}}" />
+    <input name="promote_price" type="digit" placeholder="产品团购价格" wx:else />
+  </view>
+    <block wx:if="{{extra_info>0}}">
+			<view class="form-title-line">产品尺寸</view>
+			<checkbox-group class="spec-group" bindchange="sizesChecked">
+				<view class="size-view" wx:for="{{sizes}}" wx:for-item="item" wx:key="id">
+					<label>
+						<checkbox value="{{item.id}}" checked="{{item.checked}}"/> {{item.name}}
+					</label>
+					<input name="size-price-{{item.id}}" value="{{item.price}}" type="digit" placeholder="该尺寸原价"/>
+					<input name="size-member-price-{{item.id}}" value="{{item.member_price}}" type="digit" placeholder="该尺寸会员价"/>
+					<input name="size-promote-price-{{item.id}}" value="{{item.promote_price}}" type="digit" placeholder="该尺寸促销价"/>
+				</view>
+			</checkbox-group>
+    </block>
+  <view class="form-line">
+    <text class="title">商城显示</text>
+    <radio-group class="radio-group flex-column" bindchange="webAllowChange">
+      <label class="radio">
+        <radio value="true" checked="{{web_allowed}}" />
+        显示
+      </label>
+      <label class="radio">
+        <radio value="false" checked="{{!web_allowed}}" />
+        不显示
+      </label>
+    </radio-group>
+  </view>
+  <view class="form-line">
+    <text class="title">是否推荐</text>
+    <radio-group class="radio-group flex-column" bindchange="recommendChange">
+      <label class="radio">
+        <radio value="true" size="small" checked="{{on_recommend}}" />
+        推荐
+      </label>
+      <label class="radio">
+        <radio value="false" size="small" checked="{{!on_recommend}}" />
+        不推荐
+      </label>
+    </radio-group>
+  </view>
+  <view class="form-line">
+    <text class="title">上架状态</text>
+    <radio-group class="radio-group flex-column" bindchange="onSaleChange">
+      <label class="radio">
+        <radio value="true" size="small" checked="{{on_sale}}" />
+        上架
+      </label>
+      <label class="radio">
+        <radio value="false" size="small" checked="{{!on_sale}}" />
+        下架
+      </label>
+    </radio-group>
+  </view>
+  <view class="form-title-line" bindtap="chooseImages">
+    产品图片(第一张默认为封面)
+    <text class="fa fa-plus-circle" />
+  </view>
+  <view class="form-images">
+    <view class="form-image" wx:for="{{images}}" wx:key="">
+      <image mode="widthFix" src="{{item.path}}" />
+      <text data-index="{{index}}" data-source="original" data-type="banner" bindtap="removeImage">✕</text>
+      <!--text class="fa fa-times" data-index="{{index}}" data-source="original" data-type="detail" bindtap="removeImage"/-->
+    </view>
+    <view class="form-image" wx:for="{{images_choosed}}" wx:key="">
+      <image mode="widthFix" src="{{item.path}}" />
+      <text data-index="{{index}}" data-source="choosed" data-type="banner" bindtap="removeImage">✕</text>
+    </view>
+  </view>
+  <view class="form-title-line" bindtap="chooseDetailImage">
+    产品详细描述
+    <text class="fa fa-plus-circle" />
+  </view>
+  <!-- view class="form-line">
+      <image class="widthFix" style="width: {{detail_width}}; height: {{detail_height}}px; margin: 0 3%;" src="{{detail_image}}" bindload="detailImageLoad"/>
+    </view -->
+  <view class="form-images">
+    <view class="form-image" wx:for="{{detail_images}}" wx:key="">
+      <image mode="widthFix" src="{{item.path}}" />
+      <!-- text class="far fa-times-circle" data-index="{{index}}" data-source="original" data-type="detail" bindtap="removeImage"/ -->
+      <text data-index="{{index}}" data-source="original" data-type="detail" bindtap="removeImage">✕</text>
+    </view>
+    <view class="form-image" wx:for="{{detail_images_choosed}}" wx:key="">
+      <image mode="widthFix" src="{{item.path}}" />
+      <text data-index="{{index}}" data-source="choosed" data-type="detail" bindtap="removeImage">✕</text>
+    </view>
+  </view>
+  <view style="height: 100rpx;" />
+  <button formType="submit" type="primary" class="line-button">提交</button>
+</form>

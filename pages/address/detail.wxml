@@ -1,0 +1,45 @@
+<form bindsubmit="save">
+  <view class="form-line">
+    <text class="title">联系人</text>
+    <input name="contact" placeholder="联系人" value="{{contact}}" autofocus />
+  </view>
+  <view class="form-line">
+    <text class="title">联系电话</text>
+    <input name="phone" placeholder="联系电话" value="{{phone}}"/>
+  </view>
+  <view class="form-line">
+    <text class="title">所在地区</text>
+    <picker mode="region" bindchange="regionChange">
+      <view class="picker">
+        {{province}}
+        <text>-</text>
+        {{city}}
+        <text>-</text>
+        {{district}}
+      </view>
+    </picker>
+  </view>
+  <view class="form-line">
+    <text class="title">详细地址</text>
+    <input name="address" placeholder="提货详细地址" value="{{address}}"/>
+  </view>
+  <view class="form-line">
+    <text class="title">开店时间</text>
+    <picker mode="time" value="{{from_time}}" start="08:00" end="21:00" data-name="from_time" bindchange="timeChange">
+      <view class="picker">{{from_time}}</view>
+    </picker>
+  </view>
+  <view class="form-line">
+    <text class="title">闭店时间</text>
+    <picker mode="time" value="{{to_time}}" start="14:00" end="21:00" data-name="to_time" bindchange="timeChange">
+      <view class="picker">{{to_time?to_time:''}}</view>
+    </picker>
+  </view>
+  <view class="form-line">
+    <text class="title">默认选中</text>
+    <switch class="switch" bindchange="defaultAddress" size="small" checked="{{checked}}">
+      {{checked?'默认选中':'默认不选中'}}
+    </switch>
+  </view>
+  <button class="bottom" formType="submit" type="primary">确认</button>
+</form>

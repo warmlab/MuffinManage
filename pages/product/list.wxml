@@ -1,0 +1,45 @@
+<import src="../templates/menu.wxml" />
+<template is="category-nav" data="{{categories:categories,category_id:category_id}}"></template>
+<scroll-view class="goods-list">
+  <view style="display: flex;flex-wrap: wrap;margin-bottom:90rpx">
+  <view wx:for="{{goods}}" wx:key="id" class="goods-item">
+    <image bindtap="toEditDetail" mode="aspectFill" lazy-load="{{true}}" src="{{base_image_url}}/{{item.images[0].image.name}}" background-size="cover" data-code="{{item.code}}" data-id="{{item.id}}" />
+    <text class="name">{{item.name}}</text>
+    <view class="price-box">
+      <view class="price-label">
+        <text class="price original">原价: ￥{{item.price/100}}</text>
+        <text class="price">现价: ￥{{item.promote_price/100}}</text>
+      </view>
+      <view class="checkbox {{item.checked?'active':''}}" bindtap="goodsCheck" data-id="{{item.id}}" data-index="{{index}}" data-name="{{item.name}}">
+        {{item.checked?item.index:''}}
+      </view>
+    </view>
+  </view>
+  </view>
+</scroll-view>
+<view class="attr-pop-box" hidden="{{!openAttr}}">
+  <view class="attr-pop">
+    <view class="close" bindtap="toSelect">
+      <text class="fas fa-times red-color" />
+    </view>
+    <view class="size-area" wx:if="{{products[product_index].category.extra_info&1===1}}">
+      <text>选择大小</text>
+      <view>
+        <radio-group bindchange="sizeChoose">
+          <label wx:for="{{products[product_index].sizes}}" wx:key="size.id">
+            <radio value="{{index}}" />
+            {{item.size.name}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class="confirm" wx:if="{{buy_type!=='choose'}}">
+      <button size="mini" type="primary" bindtap="toSelect" data-code="{{products[product_index].code}}">确定</button>
+    </view>
+  </view>
+</view>
+<view class="view-bottom">
+  <text class="new" bindtap="toEditDetail" data-code="0">新建</text>
+  <text class="clear" bindtap="clearSelection">清空已选</text>
+  <text class="confirm" bindtap="selectionConfirm">选中</text>
+</view>

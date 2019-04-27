@@ -1,0 +1,97 @@
+<template name="goods-list">
+  <view class="goods-area">
+    <view class="goods-box" wx:for="{{goods}}" wx:key="id" bindtap="toViewDetail" data-code="{{item.code}}">
+      <view class="img-box">
+        <image src="{{base_image_url}}/{{item.images[0].image.name}}" class="image" mode="aspectFill" lazy-load="true" />
+        <view class="goods-title">{{item.name}}</view>
+      </view>
+      <view style="display:flex;">
+        <view class="goods-price">Ұ{{item.price/100}}</view>
+        <view class="goods-price original">¥{{item.original_price/100}}</view>
+        <view class="goods-price-naver" wx:if="{{item.sold && item.sold>0}}">已售{{item.sold}}</view>
+      </view>
+    </view>
+  </view>
+</template>
+<template name="goods-info">
+  <view class="goods-info-area">
+    <view class="goods-title">
+      <view class="goods-name over">{{goods.name}}</view>
+      <view class="goods-summay" wx:if="{goods.summary}}">{{goods.summay}}</view>
+    </view>
+    <view class="goods-price-box">
+      <view class="goods-price">¥{{goods.price/100}}</view>
+      <view class="goods-price original" wx:if="{{goods.original_price}}">
+        ¥{{goods.original_price/100}}
+      </view>
+      <view class="goods-share" wx:if="{{goods.share_info === 1}}">
+        分享可获得{{goods.share_benefit}}元现金
+      </view>
+      <view class="goods-share" wx:if="{{goods.share_info === 2}}">
+        分享可获得{{goods.share_benefit}}积分
+      </view>
+      <view class="goods-share" wx:if="{{goods.share_info === 4}}">
+        分享可获得{{goods.share_benefit}}元优惠券
+      </view>
+    </view>
+    <view class="member-box">
+      <image src="../../images/vip.png" lazy-load="true" />
+      <view class="member-hi">
+        您好！
+        <text wx:if="{{false}}">
+          {{userInfo.grade.name}}折后价格为 ¥{{goods.price*userInfo.discount/10000}}
+        </text>
+      </view>
+      <view bindtap="getMemberTap" class="member-info">
+        会员中心
+        <text class="fa fa-chevron-right" />
+      </view>
+    </view>
+  </view>
+</template>
+<template name="goods-coupons">
+  <view class="coupon-area" data-show="{{ true }}" bindtap="openPopupCoupons">
+    <view class="coupon-label-box">
+      <text>领取优惠券</text>
+    </view>
+    <view class="coupon-content-box">
+      <view class="coupon-content" wx:for="{{GoodsCoupons}}" wx:key="id">
+        <view>
+          <block wx:if="{{item.type == 1}}">
+            <!-- '满减' -->
+            <text class="left">满{{item.condition/100}}减{{item.discount/100}}</text>
+            <text class="right"></text>
+          </block>
+          <block wx:if="{{item.type == 2}}">
+            <!-- '折扣' -->
+            <text class="left">满{{item.condition/100}}打{{item.discount/10}}折</text>
+            <text class="right"></text>
+          </block>
+        </view>
+      </view>
+    </view>
+    <view class="coupon-label-detail">
+      <text class="fa fa-chevron-right" />
+    </view>
+  </view>
+</template>
+<template name="goods-detail-images">
+  <image wx:for="{{detail_images}}" wx:key="" mode="widthFix" src="{{base_image_url}}/{{item.image.name}}" />
+</template>
+<template name="goods-note">
+  <image mode="widthFix" src="{{base_image_url}}/{{note}}" />
+</template>
+<template name="pintuan">
+  <view wx:if="{{toptuan}}" class="pintuan-container">
+    <view class="pintuan-title" bindtap="tapSales" data-id="{{toptuaninfo.remark}}">
+      <text>{{toptuaninfo.value}}</text>
+      <image src="../../images/home_more.png" lazy-load="true" />
+    </view>
+    <view class="pintuan-list" wx:for="{{toptuan}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.businessId}}">
+      <view class="pintuan-list-title">{{item.title}}</view>
+      <view wx:if="{{item.linkUrl}}" class="pintuan-list-text">{{item.linkUrl}}</view>
+      <view wx:if="{{item.remark}}" class="pintuan-list-info">{{item.remark}}</view>
+      <image src="{{item.picUrl}}" lazy-load="true" />
+    </view>
+  </view>
+</template>

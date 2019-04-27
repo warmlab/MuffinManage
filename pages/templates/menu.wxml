@@ -1,0 +1,14 @@
+<template name="category-nav">
+  <view wx:if="{{categories}}" class="nav-bar">
+    <scroll-view scroll-with-animation class="nav-bar-scroll" scroll-x="{{true}}" style="width: {{NAV_WIDTH}}px;" scroll-left="{{NAV_OFFSET}}" _pid="{{_pid}}">
+      <block wx:for="{{categories}}" wx:key="id">
+        <view class="nav-item item-active" wx:if="{{item.id === category_id}}" bindtap="handleChange" data-index="{{index}}">
+          {{item.name}}
+        </view>
+        <view class="nav-item" wx:else bindtap="handleChange" data-index="{{index}}">
+          {{item.name}}
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+</template>

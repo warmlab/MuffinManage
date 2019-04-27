@@ -1,0 +1,23 @@
+<view class="item-list">
+  <view class="item" wx:for="{{addresses}}" wx:key="id">
+    <view class="item-body" bindtap="toEditDetail" data-id="{{item.id}}">
+      <text class="item-head">{{item.address}}</text>
+      <view class="region">
+        <text wx:if="{{item.province}}">{{item.province}}</text>
+        <text wx:if="{{item.city}}">{{item.province}}</text>
+        <text wx:if="{{item.district}}">{{item.province}}</text>
+      </view>
+      <view class="contact">
+        <text class="checked" wx:if="{{item.checked}}">默认选中</text>
+        <text class="name">{{item.contact}}</text>
+        <text class="phone">{{item.phone}}</text>
+      </view>
+    </view>
+    <view class="item-action">
+      <text style="background-color: #e64340;" bindtap="deleteAddress" data-id="{{item.id}}">
+        删除
+      </text>
+    </view>
+  </view>
+</view>
+<view class="button-bottom" bindtap="toEditDetail" data-id="0">新建提货地址</view>
