@@ -17,6 +17,8 @@ Page({
     //toDate: "",
     //toTime: "" 
 
+    promotion_id: 0,
+    promote_type: 1, // 1-热卖 2-上新 4-特价 8-预售 
     binding: false,
     payment_method: 1,
     publish: 0,
@@ -95,137 +97,122 @@ Page({
     // get promotion info from server
     request.get('promotion', {
       id: options.id
-    })
-      .then(res => {
-        console.log('promotion', res.data)
-         var products = res.data.products.map(ele => {
-          var p = ele.product
-          p.is_deleted = ele.is_deleted
-          p.promote_stock = ele.stock
-          
-          for (var ps of p.sizes) {
-            if (ps.size.id === ele.size.id) {
-              p.want_size = ps
-              break
-            }
-          }
-          if (p.summary.length > 80)
-            p.summary = p.summary.slice(0, 70) + '...'
+    }).then(res => {
+      console.log('promotion', res.data)
+      var products = res.data.products.map(ele => {
+        var p = ele.product
+        p.is_deleted = ele.is_deleted
+        p.promote_stock = ele.stock < 0 ? 0 : ele.stock
 
-          return p
-        }).filter(ele => !ele.is_deleted)
-        //var products = []
-        //res.data.products.forEach(ele => {
-        //  var p = ele.product
-        //  p.is_deleted = ele.is_deleted
-        //  p.promote_stock = ele.stock
-        //  // determine the size of product
-        //  for (var ps of p.sizes) {
-        //    if (ps.size.id === ele.size.id) {
-        //      p.want_size = ps
-        //      break
-        //    }
-        //  }
-        //  //p.promote_stock = 36
-        //  //p.promote_price = ele.price
-        //  //p.promote_price += p.want_size.promote_price_plus
-        //  if (p.summary.length > 80)
-        //    p.summary = p.summary.slice(0, 70) + '...'
-        //  products.push(p)
+        for (var ps of p.sizes) {
+          if (ps.size.id === ele.size.id) {
+            p.want_size = ps
+            break
+          }
+        }
+        //if (p.summary.length > 80)
+        //  p.summary = p.summary.slice(0, 70) + '...'
+
+        return p
+      }).filter(ele => !ele.is_deleted)
+      //var products = []
+      //res.data.products.forEach(ele => {
+      //  var p = ele.product
+      //  p.is_deleted = ele.is_deleted
+      //  p.promote_stock = ele.stock
+      //  // determine the size of product
+      //  for (var ps of p.sizes) {
+      //    if (ps.size.id === ele.size.id) {
+      //      p.want_size = ps
+      //      break
+      //    }
+      //  }
+      //  //p.promote_stock = 36
+      //  //p.promote_price = ele.price
+      //  //p.promote_price += p.want_size.promote_price_plus
+      //  if (p.summary.length > 80)
+      //    p.summary = p.summary.slice(0, 70) + '...'
+      //  products.push(p)
+      //})
+
+      /*
+      // set addresses
+      addresses.then(addrs => {
+        addrs.map(addr => {
+          var index = res.data.addresses.findIndex(item => addr.id === item.address.id)
+          addr.checked = (index >= 0)
+        })
+        //addrs.forEach(addr => {
+        //  console.log('sadfasdf', addr.id)
+        //  var index = res.data.addresses.findIndex(item => addr.id === item.id)
+        //  if (index > 0) {
+        //    addr.checked = true
+        //  } else
+        //    addr.checked = false
         //})
 
-        // set addresses
-        addresses.then(addrs => {
-          addrs.map(addr => {
-            var index = res.data.addresses.findIndex(item => addr.id === item.address.id)
-            addr.checked = (index >= 0)
-          })
-          //addrs.forEach(addr => {
-          //  console.log('sadfasdf', addr.id)
-          //  var index = res.data.addresses.findIndex(item => addr.id === item.id)
-          //  if (index > 0) {
-          //    addr.checked = true
-          //  } else
-          //    addr.checked = false
-          //})
+        that.setData({
+          addresses: addrs,
+        })
+      })
 
-          that.setData({
-            addresses: addrs,
-          })
+      // set delivery ways
+      that.data.delivery_ways.map(way => way.checked = ((res.data.delivery_way & way.value) > 0))
+
+      // set payments
+      that.data.payments.map(payment => payment.checked = ((res.data.payment & payment.value) > 0))
+      */
+
+      that.setData({
+        id: res.data.id,
+        name: res.data.name,
+        promote_type: res.data.type,
+        products: products,
+        from_date: res.data.from_time.substr(0, 10),
+        from_time: res.data.from_time.substr(11),
+        to_date: res.data.to_time.substr(0, 10),
+        to_time: res.data.to_time.substr(11),
+        note: res.data.note
+      });
+      wx.setStorageSync('products_checked', {
+        products: products,
+        'timestamp': Date.now()
+      });
+
+      //that.getProducts();
+      wx.hideLoading();
+    }).catch(err => {
+      console.log('get promotion error', err)
+      var now = new Date();
+
+      addresses.then(addrs => {
+        var addrs_tmp = [];
+        // set default selected addresses
+        addrs.forEach(element => {
+          if (element.checked)
+            addrs_tmp.push(element.id);
         })
 
-        // set delivery ways
-        that.data.delivery_ways.map(way => way.checked = ((res.data.delivery_way & way.value) > 0))
-
-        // set payments
-        that.data.payments.map(payment => payment.checked = ((res.data.payment & payment.value) > 0))
-
+        console.log('addresses selected', addrs_tmp)
         that.setData({
-          id: res.data.id,
-          name: res.data.name,
-          products: products,
-          //addresses: that.data.addresses,
-          binding: res.data.binding,
-          from_date: res.data.from_time.substr(0, 10),
-          from_time: res.data.from_time.substr(11),
-          last_order_date: res.data.last_order_time.substr(0, 10),
-          last_order_time: res.data.last_order_time.substr(11),
-          to_date: res.data.to_time.substr(0, 10),
-          to_time: res.data.to_time.substr(11),
-          publish: 1,
-          publish_date: res.data.publish_time.substr(0, 10),
-          publish_time: res.data.publish_time.substr(11),
-          valuecard_allowed: res.data.valuecard_allowed,
-          delivery_ways: that.data.delivery_ways,
-          payments: that.data.payments,
-          delivery_fee: res.data.delivery_fee,
-          note: res.data.note
-        });
-        wx.setStorageSync('products_checked', {
-          products: products,
-          'timestamp': Date.now()
-        });
-
-        //that.getProducts();
-        wx.hideLoading();
-      })
-      .catch(err => {
-        console.log('get promotion error', err)
-        var now = new Date();
-        now.setDate(now.getDate() + 2)
-
-        addresses.then(addrs => {
-          var addrs_tmp = [];
-          // set default selected addresses
-          addrs.forEach(element => {
-            if (element.checked)
-              addrs_tmp.push(element.id);
-          })
-
-          console.log('addresses selected', addrs_tmp)
-          that.setData({
-            addresses: addrs,
-            addrs_sel: addrs_tmp
-          })
+          addresses: addrs,
+          addrs_sel: addrs_tmp
         })
-        //var fromDateTime = new Date();
-        //var toDateTime = new Date();
-        //var lastOrderTime = new Date();
-        //fromDateTime.setHours(14, 0, 0);
-        //toDateTime.setHours(19, 0, 0);
-        //lastOrderTime.setHours(8, 0, 0);
-        that.setData({
-          from_date: [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'),
-          from_time: '14:00',
-          to_date: [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'),
-          to_time: '19:00',
-          last_order_date: [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'),
-          last_order_time: '08:00',
-          publish_date: [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'),
-          publish_time: '08:00'
-        });
-        wx.hideLoading();
       })
+      //var fromDateTime = new Date();
+      //var toDateTime = new Date();
+      //var lastOrderTime = new Date();
+      //fromDateTime.setHours(14, 0, 0);
+      //toDateTime.setHours(19, 0, 0);
+      //lastOrderTime.setHours(8, 0, 0);
+      that.setData({
+        from_date: [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'),
+        from_time: '7:00',
+        to_date: [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'),
+        to_time: '19:00',
+      });
+      wx.hideLoading();
+    })
     //last_order_time: lastOrderTime.toLocaleTimeString('cn-ZH', {hour12: false, hour: '2-digit', minute: '2-digit'}),
   },
 
@@ -279,6 +266,19 @@ Page({
         //total_cost: this.calculateCost()
       });
     }
+  },
+
+  promoteTypeChange: function(e) {
+    var promote_type = this.data.promote_type
+    var value = parseInt(e.currentTarget.dataset.value)
+    if ((promote_type & value) > 0)
+    this.setData({
+      promote_type: promote_type & ~value
+    })
+    else
+    this.setData({
+      promote_type: promote_type | value
+    })
   },
 
   productsBindSwitch: function (e) {
@@ -359,12 +359,12 @@ Page({
     })
   },
 
-  startDragon: function (e) {
+  startPromote: function (e) {
     console.log(e);
     if (this.data.products.length === 0) {
       wx.showModal({
-        title: '团规商品',
-        content: '没有选择团购商品',
+        title: '促销商品',
+        content: '没有选择促销商品',
         showCancel: false
       });
 
@@ -374,7 +374,7 @@ Page({
       if (p && p.length > 0) {
       wx.showModal({
         title: p[0].name,
-        content: '该商品的团购库存不能是0',
+        content: '促销库存不能<0',
         showCancel: false
       });
 
@@ -382,6 +382,7 @@ Page({
       }
     }
 
+    /*
     var addrs = this.data.addresses.filter(item => item.checked)
     console.log('addrs', addrs)
     if (addrs.length === 0) {
@@ -431,10 +432,10 @@ Page({
       });
 
       return;
-    }
+    } */
 
     wx.showLoading({
-      title: '团购正在生成中，请稍候',
+      title: '促销正在提交，请稍候...',
       mask: true
     })
 
@@ -442,29 +443,30 @@ Page({
     data.products = this.data.products.map(p => {
       return {
         id: p.id,
-        stock: p.promote_stock,
+        stock: p.promote_stock > 0 ? p.promote_stock : 0,
         size: p.want_size ? p.want_size.size.id : 0
       }
     })
-    data.addresses = this.data.addresses.filter(item => item.checked).map(item => item.id)
+    //data.addresses = this.data.addresses.filter(item => item.checked).map(item => item.id)
     //data.delivery_ways = this.data.delivery_ways.filter(item => item.checked)
     //data.payments = this.data.payments.filter(item => item.checked)
 
     data.id = this.data.id
-    data.binding = this.data.binding
-    data.delivery_way = delivery_way
-    data.payment = payment
-    data.delivery_fee = delivery_fee * 100; // 转换成单位分
-    data.name = e.detail.value.name;
-    data.note = e.detail.value.note;
-    data.last_order_date = this.data.last_order_date
-    data.last_order_time = this.data.last_order_time
+    data.promote_type = this.data.promote_type
+    //data.binding = this.data.binding
+    //data.delivery_way = delivery_way
+    //data.payment = payment
+    //data.delivery_fee = delivery_fee * 100; // 转换成单位分
+    //data.name = e.detail.value.name;
+    //data.note = e.detail.value.note;
+    //data.last_order_date = this.data.last_order_date
+    //data.last_order_time = this.data.last_order_time
     data.from_date = this.data.from_date
     data.from_time = this.data.from_time
     data.to_date = this.data.to_date
     data.to_time = this.data.to_time
-    data.publish_date = this.data.publish_date
-    data.publish_time = this.data.publish_time
+    //data.publish_date = this.data.publish_date
+    //data.publish_time = this.data.publish_time
     data.to_remove = this.data.to_remove_products
 
     request.post('promotion', data)
@@ -475,7 +477,7 @@ Page({
       .catch(err => {
         wx.hideLoading()
         wx.showToast({
-          title: '团购生成失败，请检查数据',
+          title: '促销生成失败，请检查数据',
           icon: 'none',
           duration: 2000
         })

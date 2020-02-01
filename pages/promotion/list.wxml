@@ -1,7 +1,12 @@
 <view class="item-list">
   <view class="item" wx:for="{{promotions}}" wx:key="id" data-id="{{item.id}}">
     <view class="item-body" bindtap="toEditDetail" data-id="{{item.id}}">
-      <text class="item-head">{{item.name}}</text>
+      <text class="item-head">
+        <block wx:if="{{(item.type & 1)===1}}">热卖 </block>
+        <block wx:if="{{(item.type & 2)===2}}">上新 </block>
+        <block wx:if="{{(item.type & 4)===4}}">特价 </block>
+        <block wx:if="{{(item.type & 8)===8}}">预售</block>
+      </text>
       <view class="item-content">
         <block wx:if="{{item.products.length<=3}}">
           <view class="product" wx:for="{{item.products}}" wx:key="id" wx:for-item="p">
@@ -10,19 +15,18 @@
           </view>
         </block>
         <block wx:else>
-          <view class="product" wx:for="{{item.products}}" wx:key="id" wx:for-item="p" wx:for-index="i" wx:if="{{i<3}}">
+          <view class="product" wx:for="{{item.products}}" wx:key="id" wx:for-item="p" wx:for-index="i" wx:if="{{i<4}}">
           <image src="{{base_image_url}}/{{p.product.images[0].image.name}}"/>
           <!--text>{{p.product.name}}</text-->
           </view>
           <text>...</text>
         </block>
       </view>
-      <view class="item-time">截单时间：{{item.last_order_time}}</view>
+      <view class="item-time">有效时间：{{item.from_time}} - {{item.to_time}}</view>
     </view>
-    <view class="item-action">
+    <view class="item-action" wx:if="{{0}}">
       <text class="fa fa-envelope" style="background-color: #09bb07;" bindtap="exportPromotion" data-id="{{item.id}}" />
       <text style="background-color: #e64340;" bindtap="deletePromotion" data-id="{{item.id}}">删除</text>
     </view>
   </view>
 </view>
-<view class="button-bottom" bindtap="toEditDetail" data-id="0">发布新团购</view>

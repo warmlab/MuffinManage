@@ -5,13 +5,12 @@ import request from '../../utils/request.js'
 const app = getApp()
 
 Page({
-
 	/**
 	 * 页面的初始数据
 	 */
-  data: {
-    base_image_url: config.base_image_url
-  },
+	data: {
+		base_image_url: config.base_image_url
+	},
 
 	updateData: function (that) {
 		wx.showLoading({
@@ -20,21 +19,20 @@ Page({
 		})
 		var that = this;
 		request.get('promotions', {
-      manage: true,
-      limit: 10
+			manage: true,
+			limit: 10
+		}).then(res => {
+			console.log('promotions', res)
+			that.setData({
+				promotions: res.data
 			})
-			.then(res => {
-				console.log('promotions', res)
-				that.setData({
-					promotions: res.data
-				})
-				wx.stopPullDownRefresh()
-				wx.hideLoading()
-			}).catch(err => {
-				console.log('promotions', err)
-				wx.stopPullDownRefresh()
-				wx.hideLoading()
-			})
+			wx.stopPullDownRefresh()
+			wx.hideLoading()
+		}).catch(err => {
+			console.log('promotions', err)
+			wx.stopPullDownRefresh()
+			wx.hideLoading()
+		})
 	},
 
 	/**
@@ -53,20 +51,19 @@ Page({
 			title: '发送邮件中...'
 		})
 		request.put('promotion', {
-				id: e.currentTarget.dataset.id
+			id: e.currentTarget.dataset.id
+		}).then(res => {
+			wx.hideLoading()
+			wx.showToast({
+				title: '邮件发送成功'
 			})
-			.then(res => {
-				wx.hideLoading()
-				wx.showToast({
-					title: '邮件发送成功'
-				})
-			}).catch(err => {
-				wx.hideLoading()
-				wx.showToast({
-					title: '邮件发送失败',
-					icon: 'none'
-				})
+		}).catch(err => {
+			wx.hideLoading()
+			wx.showToast({
+				title: '邮件发送失败',
+				icon: 'none'
 			})
+		})
 	},
 
 	toEditDetail: function (e) {
@@ -86,8 +83,8 @@ Page({
 				if (res.confirm) {
 
 					request.delete('promotion', {
-							id: e.currentTarget.dataset.id
-						})
+						id: e.currentTarget.dataset.id
+					})
 						.then(res => {
 							console.log('delete promotion successfully', res)
 							that.updateData()

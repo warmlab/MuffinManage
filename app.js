@@ -1,4 +1,5 @@
 import request from './utils/request.js'
+import theme from './utils/theme.js'
 import {
   getShopInfo
 } from './utils/resource.js'

@@ -163,6 +163,7 @@ Page({
       this.data.current_checked_ids.splice(pos, 1)
       product.checked = false
       product.index = 0
+      //product.promote_stock = product.promote_stock >= 0 ? product.promote_stock : 0
     } else {
       this.data.current_checked_ids.push(product)
       //this.data.current_checked_ids.push({
