@@ -16,6 +16,8 @@ App({
     this.login().then(userInfo => {
       //that.globalData.userInfo = userInfo
       getShopInfo()
+      wx.setStorageSync('appUserInfo', userInfo)
+
       // 获取用户信息
       wx.getSetting({
         success: res => {
@@ -88,7 +90,8 @@ App({
     return new Promise((resolve, reject) => {
       var interval = setInterval(function () {
         var userInfo = wx.getStorageSync('appUserInfo')
-        if (userInfo) {
+        console.log('user info', userInfo)
+        if (!!userInfo) {
           clearInterval(interval)
           resolve(userInfo)
         }

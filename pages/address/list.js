@@ -13,23 +13,23 @@ Page({
   },
 
 	onShow: function (e) {
-    var that = this
+		var that = this
 		wx.showLoading({
 			title: '提货地址加载中...',
 			mask: true
 		})
-		var that = this;
+
 		request.get('addresses', {
-      limit: 10
-			}).then(res => {
-				that.setData({
-					addresses: res.data
-				})
-				wx.hideLoading()
-			}).catch(err => {
-				console.log('promotions', err)
-				wx.hideLoading()
+			limit: 10
+		}).then(res => {
+			that.setData({
+				addresses: res.data
 			})
+			wx.hideLoading()
+		}).catch(err => {
+			console.log('promotions', err)
+			wx.hideLoading()
+		})
 	},
 
 	/**

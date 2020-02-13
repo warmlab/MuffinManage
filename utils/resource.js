@@ -77,7 +77,8 @@ const getProductsByCategory = category_id => {
   return new Promise((resolve, reject) => {
     request.get('products', {
         category: category_id,
-        type: 1023
+        show_type: 1023,
+        manage: 1
       })
       .then(res => {
         resolve(res.data)

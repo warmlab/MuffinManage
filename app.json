@@ -6,7 +6,9 @@
     "pages/address/list",
     "pages/address/detail",
     "pages/promotion/list",
-    "pages/promotion/detail"
+    "pages/promotion/detail",
+    "pages/market/ads",
+    "pages/market/ad"
   ],
   "window": {
     "backgroundTextStyle": "light",

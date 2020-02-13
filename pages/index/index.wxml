@@ -10,7 +10,7 @@
       <text class="fa fa-leaf fa-2x icon" />
       <text class="label">商品</text>
     </navigator>
-    <navigator class="icon-item" url="/pages/promotion/detail" open-type="navigate" hover-class="none">
+    <navigator class="icon-item" url="/pages/promotion/detail?id=0" open-type="navigate" hover-class="none">
       <text class="fa fa-gift fa-2x icon" />
       <text class="label">促销</text>
     </navigator>
@@ -22,17 +22,33 @@
       <text class="fa fa-map-marked-alt fa-2x icon" />
       <text class="label">提货地址</text>
     </navigator>
-    <navigator class="icon-item" url="/pages/admin/members" open-type="navigate" hover-class="none">
+    <navigator class="icon-item" url="/pages/member/index" open-type="navigate" hover-class="none">
       <text class="fa fa-users-cog fa-2x icon" />
       <text class="label">会员</text>
     </navigator>
-    <navigator class="icon-item" url="/pages/admin/coupons" open-type="navigate" hover-class="none">
+    <navigator class="icon-item" url="/pages/market/coupons" open-type="navigate" hover-class="none">
       <text class="fa fa-ticket-alt fa-2x icon" />
       <text class="label">优惠券</text>
     </navigator>
-    <navigator class="icon-item" url="/pages/admin/ads" open-type="navigate" hover-class="none">
+    <navigator class="icon-item" url="/pages/market/ads" open-type="navigate" hover-class="none">
       <text class="fa fa-ad fa-2x icon" />
       <text class="label">广告</text>
     </navigator>
+  </view>
+</view>
+<view class="goods-list">
+  <view style="display: flex;flex-wrap: wrap;margin-bottom:90rpx">
+  <view wx:for="{{goods}}" wx:key="id" class="goods-item">
+    <image bindtap="toEditDetail" mode="aspectFill" lazy-load="{{true}}" src="{{base_image_url}}/{{item.images[0].image.name}}" background-size="cover" data-code="{{item.code}}" data-id="{{item.id}}" />
+    <text class="name">{{item.name}}</text>
+    <view class="price-box">
+      <view class="price-label">
+        <text class="price original">原价: ￥{{item.price/100}}</text>
+      </view>
+      <view class="checkbox {{item.checked?'active':''}}" bindtap="goodsCheck" data-id="{{item.id}}" data-index="{{index}}" data-name="{{item.name}}">
+        {{item.checked?item.index:''}}
+      </view>
+    </view>
+  </view>
   </view>
 </view>

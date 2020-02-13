@@ -3,20 +3,24 @@
     <text class="title">促销方式</text>
     <view class="promotion-area">
       <view class="checkbox-item" bindtap="promoteTypeChange" data-value="1">
-        <text class="icon {{(promote_type&1)===1?'checked':0}}">✔</text>
+        <text class="icon {{(promote_type&1)===1?'checked':0}}"><text class="fa fa-check"/></text>
         <text class="label">今日热卖</text>
       </view>
       <view class="checkbox-item" bindtap="promoteTypeChange" data-value="2">
-        <text class="icon {{(promote_type&2)===2?'checked':0}}">✔</text>
+        <text class="icon {{(promote_type&2)===2?'checked':0}}"><text class="fa fa-check"/></text>
         <text class="label">今日上新</text>
       </view>
       <view class="checkbox-item" bindtap="promoteTypeChange" data-value="4">
-        <text class="icon {{(promote_type&4)===4?'checked':0}}">✔</text>
+        <text class="icon {{(promote_type&4)===4?'checked':0}}"><text class="fa fa-check"/></text>
         <text class="label">今日特价</text>
       </view>
       <view class="checkbox-item" bindtap="promoteTypeChange" data-value="8">
-        <text class="icon {{(promote_type&8)===8?'checked':0}}">✔</text>
+        <text class="icon {{(promote_type&8)===8?'checked':0}}"><text class="fa fa-check"/></text>
         <text class="label">预售</text>
+      </view>
+      <view class="checkbox-item" bindtap="promoteTypeChange" data-value="16">
+        <text class="icon {{(promote_type&16)===16?'checked':0}}"><text class="fa fa-check"/></text>
+        <text class="label">本周推荐</text>
       </view>
     </view>
   </view>
@@ -67,7 +71,7 @@
         <view style="flex: 1;" />
         <view class="amount-area">
           <view class="cut amount-action" bindtap="amountChange" data-value="-1" data-index="{{index}}">-</view>
-          <input class="amount" type="number" placeholder="10" maxlength="5" value="{{item.promote_stock}}" bindblur="amountSet" data-index="{{index}}" />
+          <input class="amount" type="number" maxlength="5" value="{{item.stock}}" bindblur="amountSet" data-index="{{index}}" />
           <view class="add amount-action" bindtap="amountChange" data-value="1" data-index="{{index}}">+</view>
         </view>
       </view>
@@ -95,7 +99,7 @@
         <view style="flex: 1;" />
         <view class="amount-area">
           <view class="cut amount-action" bindtap="amountChange" data-value="-1" data-index="{{index}}">-</view>
-          <input class="amount" type="number" placeholder="10" maxlength="5" value="{{item.promote_stock}}" bindblur="amountSet" data-index="{{index}}" />
+          <input class="amount" type="number" maxlength="5" value="{{item.stock}}" bindblur="amountSet" data-index="{{index}}" />
           <view class="add amount-action" bindtap="amountChange" data-value="1" data-index="{{index}}">+</view>
         </view>
       </view>

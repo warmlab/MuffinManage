@@ -1,10 +1,10 @@
 const config = {
   version: '1.0.0',
   api_version: '1.0.0',
-  base_url: 'http://10.2.2.7:5000/api',
-  base_image_url: 'http://10.2.2.7:5000/media',
-  //base_url: 'https://wecakes.com/api/muffins',
-  //base_image_url: 'https://wecakes.com/media',
+  //base_url: 'http://10.2.2.7:5000/api',
+  //base_image_url: 'http://10.2.2.7:5000/media',
+  base_url: 'https://wecakes.com/api',
+  base_image_url: 'https://wecakes.com/media',
   shoppoint: 'muffins',
   partment: 'manage',
   terminal_type: 4, // 1 - WebSite; 2 - POS; 4 - Miniprogram

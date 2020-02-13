@@ -87,7 +87,7 @@ Page({
     // get selected products
     //that.getSelectedProducts();
     // get pickup addresses
-    var addresses = this.getAddresses();
+    //var addresses = this.getAddresses();
 
     wx.showLoading({
       title: '加载中...',
@@ -102,7 +102,7 @@ Page({
       var products = res.data.products.map(ele => {
         var p = ele.product
         p.is_deleted = ele.is_deleted
-        p.promote_stock = ele.stock < 0 ? 0 : ele.stock
+        p.promote_stock = ele.promote_stock < 0 ? 0 : ele.promote_stock
 
         for (var ps of p.sizes) {
           if (ps.size.id === ele.size.id) {
@@ -185,20 +185,20 @@ Page({
       console.log('get promotion error', err)
       var now = new Date();
 
-      addresses.then(addrs => {
-        var addrs_tmp = [];
-        // set default selected addresses
-        addrs.forEach(element => {
-          if (element.checked)
-            addrs_tmp.push(element.id);
-        })
+      //addresses.then(addrs => {
+      //  var addrs_tmp = [];
+      //  // set default selected addresses
+      //  addrs.forEach(element => {
+      //    if (element.checked)
+      //      addrs_tmp.push(element.id);
+      //  })
 
-        console.log('addresses selected', addrs_tmp)
-        that.setData({
-          addresses: addrs,
-          addrs_sel: addrs_tmp
-        })
-      })
+      //  console.log('addresses selected', addrs_tmp)
+      //  that.setData({
+      //    addresses: addrs,
+      //    addrs_sel: addrs_tmp
+      //  })
+      //})
       //var fromDateTime = new Date();
       //var toDateTime = new Date();
       //var lastOrderTime = new Date();

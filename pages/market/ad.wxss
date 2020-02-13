@@ -1,0 +1,23 @@
+.image-area {
+
+}
+
+.ad-image {
+    width: 96%;
+    height: 165px;
+    margin: 0 2%;
+    border-radius: 20rpx;
+}
+
+.image-area .absense {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2rpx solid #481A0E;
+    border-radius: 20rpx;
+    font-size: 200rpx;
+    width: 96%;
+    height: 165px;
+    margin: 0 2%;
+    color: #481A0E;
+}

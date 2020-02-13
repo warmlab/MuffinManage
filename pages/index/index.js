@@ -1,22 +1,40 @@
+import config from '../../config.js'
+
 import {
-  login
+  login,
+  getProductsByCategory
 } from '../../utils/resource.js'
-//index.js
-//获取应用实例
+
 const app = getApp()
 
 Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    base_image_url: config.base_image_url
   },
 
   onLoad: function () {
+    var that = this
     app.getUserInfo().then(res => {
-      this.setData({
+      if (res.privilege !== 1023) {
+        getProductsByCategory(1).then(products => {
+          that.setData({
+            //summary: summary,
+            goods: products
+          })
+          wx.hideLoading()
+        }).catch(err => {
+          console.error('get products by category error:', err)
+          wx.hideLoading()
+        })
+      }
+      that.setData({
         userInfo: res
       })
+    }).catch(err => {
+      console.log('get user info error', err)
     })
   },
 })

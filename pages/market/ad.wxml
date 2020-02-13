@@ -1,0 +1,16 @@
+<form bindsubmit="confirmAd">
+  <view class="image-area">
+    <image wx:if="{{image_url}}" mode="widthFix" src="{{image_url}}" bindtap="chooseImage" />
+    <view class="absense" bindtap="chooseImage"  wx:else>+</view>
+  </view>
+  <view class="form-line">
+    <text class="title">广告标题</text>
+    <input name="title" value="{{image.title}}" />
+  </view>
+  <view class="form-line">
+    <text class="title">广告描述</text>
+    <textarea name="note" value="{{image.note}}" maxlength="512" />
+  </view>
+  <view style="height: 100rpx;"/>
+  <button formType="submit" class="line-button">提交</button>
+</form>
