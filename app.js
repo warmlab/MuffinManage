@@ -1,8 +1,5 @@
 import request from './utils/request.js'
 import theme from './utils/theme.js'
-import {
-  getShopInfo
-} from './utils/resource.js'
 
 App({
   onLaunch: function () {
@@ -15,7 +12,7 @@ App({
     // 登录
     this.login().then(userInfo => {
       //that.globalData.userInfo = userInfo
-      getShopInfo()
+      //getShopInfo()
       wx.setStorageSync('appUserInfo', userInfo)
 
       // 获取用户信息

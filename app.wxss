@@ -124,51 +124,6 @@ page {
 }
 
 
-.icon-area {
-}
-
-/* this area for user page */
-.icon-area .icon-title {
-  width: 100%;
-  padding: 30rpx 0;
-  border-bottom: 1rpx solid #f5f5f5;
-}
-
-.icon-title text {
-  font-size: 28rpx;
-  margin-left: 40rpx;
-}
-
-.icon-area .icon-body {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 1% 0;
-}
-
-.icon-body .icon-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20rpx 0;
-  width: 48.5%;
-  background-color: #f8b90f;
-  border-radius: 10px;
-  margin-left: 1%;
-  margin-bottom: 1%;
-}
-
-.icon-body .icon-item .icon {
-  color: #353535cc;
-  font-weight: lighter;
-  margin: 40rpx 0;
-}
-
-.icon-body .icon-item .label {
-  font-size: 22rpx;
-  margin-top: 10rpx;
-}
-
 /* for form action begin */
 .form-line {
   display:flex;
@@ -204,7 +159,7 @@ page {
 .form-line textarea {
   margin: 0 2%;
   width: 96%;
-  border-bottom: 2rpx solid #9b9b9b;
+  border-bottom: 2rpx solid #f5f5f5;
   padding: 4rpx 0;
   height: 100rpx;
 }

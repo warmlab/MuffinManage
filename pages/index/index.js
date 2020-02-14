@@ -1,7 +1,8 @@
 import config from '../../config.js'
 
 import {
-  login
+  login,
+  getShopInfo
 } from '../../utils/resource.js'
 
 const app = getApp()
@@ -16,6 +17,11 @@ Page({
 
   onLoad: function () {
     var that = this
+    getShopInfo().then(shopInfo => {
+      this.setData({
+        shopInfo: shopInfo
+      })
+    })
     app.getUserInfo().then(res => {
       that.setData({
         userInfo: res
@@ -24,4 +30,10 @@ Page({
       console.log('get user info error', err)
     })
   },
+
+  navigateToProgram: function(e) {
+    wx.navigateToMiniProgram({
+      appId: 'wxf01e1fc0768c59ba'
+    })
+  }
 })

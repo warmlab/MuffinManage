@@ -1,0 +1,24 @@
+<form bindsubmit="saveShopInfo">
+  <view class="form-line">
+    <text class="title">店名称</text>
+    <input name="name" value="{{shopInfo.name}}" />
+  </view>
+  <view class="form-line">
+    <text class="title">联系人</text>
+    <input name="contact" value="{{shopInfo.contact}}" />
+  </view>
+  <view class="form-line">
+    <text class="title">电话号码</text>
+    <input name="mobile" type="number" value="{{shopInfo.mobile}}" maxlength="11"/>
+  </view>
+  <view class="form-line">
+    <text class="title">地址</text>
+    <input name="address" value="{{shopInfo.address}}" />
+  </view>
+  <view class="form-line">
+    <text class="title">备注</text>
+    <textarea name="note" value="{{shopInfo.note}}" maxlength="512" />
+  </view>
+  <button formType="submit" class="line-button">提交</button>
+</form>
+
