@@ -4,8 +4,8 @@
       <text class="item-head">{{item.address}}</text>
       <view class="region">
         <text wx:if="{{item.province}}">{{item.province}}</text>
-        <text wx:if="{{item.city}}">{{item.province}}</text>
-        <text wx:if="{{item.district}}">{{item.province}}</text>
+        <text wx:if="{{item.city}}">{{item.city}}</text>
+        <text wx:if="{{item.district}}">{{item.district}}</text>
       </view>
       <view class="contact">
         <text class="checked" wx:if="{{item.checked}}">默认选中</text>

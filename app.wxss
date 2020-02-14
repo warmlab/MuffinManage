@@ -271,10 +271,12 @@ page {
   /*width: 80%;*/
   display: flex;
   flex: 1;
+  margin: 0 2%;
 }
 
 .form-line switch {
   flex: 1;
+  margin: 0 2%;
 }
 
 .form-line .checkbox-area {

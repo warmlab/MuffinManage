@@ -36,19 +36,3 @@
     </navigator>
   </view>
 </view>
-<view class="goods-list">
-  <view style="display: flex;flex-wrap: wrap;margin-bottom:90rpx">
-  <view wx:for="{{goods}}" wx:key="id" class="goods-item">
-    <image bindtap="toEditDetail" mode="aspectFill" lazy-load="{{true}}" src="{{base_image_url}}/{{item.images[0].image.name}}" background-size="cover" data-code="{{item.code}}" data-id="{{item.id}}" />
-    <text class="name">{{item.name}}</text>
-    <view class="price-box">
-      <view class="price-label">
-        <text class="price original">原价: ￥{{item.price/100}}</text>
-      </view>
-      <view class="checkbox {{item.checked?'active':''}}" bindtap="goodsCheck" data-id="{{item.id}}" data-index="{{index}}" data-name="{{item.name}}">
-        {{item.checked?item.index:''}}
-      </view>
-    </view>
-  </view>
-  </view>
-</view>

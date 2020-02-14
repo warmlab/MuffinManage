@@ -1,8 +1,7 @@
 import config from '../../config.js'
 
 import {
-  login,
-  getProductsByCategory
+  login
 } from '../../utils/resource.js'
 
 const app = getApp()
@@ -18,18 +17,6 @@ Page({
   onLoad: function () {
     var that = this
     app.getUserInfo().then(res => {
-      if (res.privilege !== 1023) {
-        getProductsByCategory(1).then(products => {
-          that.setData({
-            //summary: summary,
-            goods: products
-          })
-          wx.hideLoading()
-        }).catch(err => {
-          console.error('get products by category error:', err)
-          wx.hideLoading()
-        })
-      }
       that.setData({
         userInfo: res
       })
