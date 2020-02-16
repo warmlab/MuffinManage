@@ -1,7 +1,7 @@
 <view class="ad-list">
   <view style="width: 100%; border-top: thin solid #e7e7e7;"></view>
   <view class="ad-item" wx:for="{{ads}}" wx:key="id">
-    <image src="{{base_image_url}}/{{item.name}}" mode="aspectFill" data-index="{{index}}" />
+    <image src="{{base_image_url}}/full/{{item.name}}" mode="aspectFill" data-index="{{index}}" />
     <view class="desc-info">
       <view class="title">{{item.title}}</view>
       <view class="actions">

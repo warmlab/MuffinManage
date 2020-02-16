@@ -102,6 +102,7 @@ Page({
           wx.hideLoading()
         }
         console.log('upload image successfully', r)
+        wx.navigateBack()
       },
       fail: function (err) {
         console.log('upload image error', err)

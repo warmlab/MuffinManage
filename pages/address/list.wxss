@@ -20,8 +20,28 @@
 }
 
 .item-list .item .item-body .item-head {
+  display: flex;
   width: 100%;
   overflow: hidden;
+}
+
+.item-list .item .item-body .item-head .item-address {
+}
+
+.item-list .item .item-body .item-head .item-status {
+  border-radius: 8rpx;
+  font-size: 20rpx;
+  margin-left: 20rpx;
+  padding: 0 8rpx;
+  display: flex;
+  align-items: center;
+  border: 1rpx solid #9b9b9b;
+  color: #9b9b9b;
+}
+
+.item-list .item .item-body .item-head .item-status.available {
+  border: 1rpx solid #481A0E;
+  color: #481A0E;
 }
 
 .item-list .item .item-body .region {

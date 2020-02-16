@@ -17,6 +17,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
 		var that = this;
 		wx.showLoading({
 			title: '广告加载中...',
@@ -35,20 +48,6 @@ Page({
 			console.log('get images', err)
 			wx.hideLoading()
 		})
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
   },
 
   /**
@@ -73,7 +72,9 @@ Page({
   },
 
   deleteAd: function(e) {
+    var that = this
     var id = e.currentTarget.dataset.id
+    var index = parseInt(e.currentTarget.dataset.index)
     wx.showLoading({
 			title: '广告删除中...',
 			mask: true
@@ -84,7 +85,11 @@ Page({
 				title: '删除成功',
 				icon: 'none',
 				duration: 2000
-			})
+      })
+      that.data.ads.splice(index, 1)
+      that.setData({
+        ads: that.data.ads
+      })
     }).catch(err => {
       console.log('delete ad ', id, 'error ', err)
       wx.hideLoading()

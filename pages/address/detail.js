@@ -10,6 +10,7 @@ Page({
     district: '李沧区',
     from_time: '09:00',
     to_time: '21:00',
+    available: true,
     checked: false
   },
 
@@ -20,9 +21,10 @@ Page({
         title: '加载中，请稍候',
         mask: true
       })
-      request.get('address', {
+      request.get('pickupaddress', {
         code: options.id
       }).then(res => {
+        console.log('pickup address info', res.data)
         that.setData({
           id: options.id,
           contact: res.data.contact,
@@ -33,7 +35,8 @@ Page({
           address: res.data.address,
           from_time: res.data.from_time,
           to_time: res.data.to_time,
-          checked: res.data.checked
+          available: (res.data.status & 1) === 1,
+          checked: (res.data.status & 2) === 2
         })
         wx.hideLoading()
       }).catch(err => {
@@ -45,7 +48,7 @@ Page({
 
   save: function (e) {
     var that = this;
-    console.log(e);
+    console.log('to save address', e);
     if (e.detail.value.contact.trim() === '') {
       wx.showToast({
         title: '您还没有写联系人',
@@ -75,7 +78,12 @@ Page({
       return;
     }
 
-    request.post('address', {
+    var status = 0
+    if (that.data.available)
+      status = 1
+    if (that.data.checked)
+      status = status | 2
+    request.post('pickupaddress', {
       code: that.data.id,
       contact: e.detail.value.contact,
       phone: e.detail.value.phone,
@@ -85,7 +93,7 @@ Page({
       address: e.detail.value.address,
       from_time: that.data.from_time,
       to_time: that.data.to_time,
-      checked: that.data.checked
+      status: status
     }).then(res => {
       console.log(res.data);
       var pages = getCurrentPages();
@@ -97,7 +105,7 @@ Page({
       });
 
       wx.showToast({
-        title: '地址添加成功',
+        title: '地址更新成功',
         icon: 'success',
         duration: 2000
       });
@@ -134,5 +142,11 @@ Page({
     this.setData({
       checked: e.detail.value
     });
+  },
+
+  changeAvailable: function(e) {
+    this.setData({
+      available: e.detail.value
+    })
   }
 });

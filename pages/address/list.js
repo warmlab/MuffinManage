@@ -19,7 +19,8 @@ Page({
 			mask: true
 		})
 
-		request.get('addresses', {
+		request.get('pickupaddresses', {
+			manage: true,
 			limit: 10
 		}).then(res => {
 			that.setData({

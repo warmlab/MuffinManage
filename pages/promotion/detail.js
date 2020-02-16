@@ -435,7 +435,7 @@ Page({
     } */
 
     wx.showLoading({
-      title: '促销正在提交，请稍候...',
+      title: '促销正在生成',
       mask: true
     })
 
@@ -472,6 +472,10 @@ Page({
     request.post('promotion', data)
       .then(res => {
         wx.hideLoading()
+        wx.showModal({
+          title: '促销生成成功',
+          showCancel: false
+        })
         wx.navigateBack();
       })
       .catch(err => {
