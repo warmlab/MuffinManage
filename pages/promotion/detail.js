@@ -102,66 +102,18 @@ Page({
       var products = res.data.products.map(ele => {
         var p = ele.product
         p.is_deleted = ele.is_deleted
-        p.promote_stock = ele.promote_stock < 0 ? 0 : ele.promote_stock
+        //p.promote_stock = ele.promote_stock < 0 ? 0 : ele.promote_stock
+        p.stock = ele.stock <= 0 ? 36 : ele.stock
 
-        for (var ps of p.sizes) {
-          if (ps.size.id === ele.size.id) {
-            p.want_size = ps
-            break
-          }
-        }
-        //if (p.summary.length > 80)
-        //  p.summary = p.summary.slice(0, 70) + '...'
+        //for (var ps of p.sizes) {
+        //  if (ps.size.id === ele.size.id) {
+        //    p.want_size = ps
+        //    break
+        //  }
+        //}
 
         return p
       }).filter(ele => !ele.is_deleted)
-      //var products = []
-      //res.data.products.forEach(ele => {
-      //  var p = ele.product
-      //  p.is_deleted = ele.is_deleted
-      //  p.promote_stock = ele.stock
-      //  // determine the size of product
-      //  for (var ps of p.sizes) {
-      //    if (ps.size.id === ele.size.id) {
-      //      p.want_size = ps
-      //      break
-      //    }
-      //  }
-      //  //p.promote_stock = 36
-      //  //p.promote_price = ele.price
-      //  //p.promote_price += p.want_size.promote_price_plus
-      //  if (p.summary.length > 80)
-      //    p.summary = p.summary.slice(0, 70) + '...'
-      //  products.push(p)
-      //})
-
-      /*
-      // set addresses
-      addresses.then(addrs => {
-        addrs.map(addr => {
-          var index = res.data.addresses.findIndex(item => addr.id === item.address.id)
-          addr.checked = (index >= 0)
-        })
-        //addrs.forEach(addr => {
-        //  console.log('sadfasdf', addr.id)
-        //  var index = res.data.addresses.findIndex(item => addr.id === item.id)
-        //  if (index > 0) {
-        //    addr.checked = true
-        //  } else
-        //    addr.checked = false
-        //})
-
-        that.setData({
-          addresses: addrs,
-        })
-      })
-
-      // set delivery ways
-      that.data.delivery_ways.map(way => way.checked = ((res.data.delivery_way & way.value) > 0))
-
-      // set payments
-      that.data.payments.map(payment => payment.checked = ((res.data.payment & payment.value) > 0))
-      */
 
       that.setData({
         id: res.data.id,
@@ -185,26 +137,6 @@ Page({
       console.log('get promotion error', err)
       var now = new Date();
 
-      //addresses.then(addrs => {
-      //  var addrs_tmp = [];
-      //  // set default selected addresses
-      //  addrs.forEach(element => {
-      //    if (element.checked)
-      //      addrs_tmp.push(element.id);
-      //  })
-
-      //  console.log('addresses selected', addrs_tmp)
-      //  that.setData({
-      //    addresses: addrs,
-      //    addrs_sel: addrs_tmp
-      //  })
-      //})
-      //var fromDateTime = new Date();
-      //var toDateTime = new Date();
-      //var lastOrderTime = new Date();
-      //fromDateTime.setHours(14, 0, 0);
-      //toDateTime.setHours(19, 0, 0);
-      //lastOrderTime.setHours(8, 0, 0);
       that.setData({
         from_date: [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'),
         from_time: '7:00',
@@ -238,7 +170,7 @@ Page({
     //var a = parseInt(this.data.order.amount);
     var index = parseInt(e.currentTarget.dataset.index);
     var product = this.data.products[index];
-    product.promote_stock = v
+    product.stock = v
   },
 
   amountChange: function (e) {
@@ -247,19 +179,19 @@ Page({
     var index = parseInt(e.currentTarget.dataset.index);
     var product = this.data.products[index];
 
-    if (product.promote_stock < 0)
-      product.promote_stock = 0;
+    if (product.stock < 0)
+      product.stock = 0;
 
     if (v < 0) {
-      if (product.promote_stock >= -v) {
-        product.promote_stock += v;
+      if (product.stock >= -v) {
+        product.stock += v;
         this.setData({
           products: this.data.products,
           //total_cost: this.calculateCost()
         });
       }
     } else if (v > 0) {
-      product.promote_stock += v;
+      product.stock += v;
       this.setData({
         //promotion: this.data.promotion,
         products: this.data.products,
@@ -292,10 +224,6 @@ Page({
     this.setData({
       [e.currentTarget.dataset.name]: e.detail.value
     });
-    //if (prefix == 'from')
-    //    this.setData({'fromTime': e.detail.value});
-    //else if (prefix == 'to')
-    //    this.setData({'toTime': e.detail.value});
   },
 
   allowMember: function (e) {
@@ -311,11 +239,6 @@ Page({
     this.setData({
       delivery_ways: ways
     });
-    //if (e.detail.value === "0") {
-    //    this.setData({deliveryInputFlag: "none"});
-    //} else {
-    //    this.setData({deliveryInputFlag: "block"});
-    //}
   },
 
   addressChange: function (e) {
@@ -363,18 +286,18 @@ Page({
     console.log(e);
     if (this.data.products.length === 0) {
       wx.showModal({
-        title: '促销商品',
-        content: '没有选择促销商品',
+        title: '选择商品',
+        content: '没有选择活动商品',
         showCancel: false
       });
 
       return;
     } else {
-      var p = this.data.products.filter(item => item.promote_stock < 0)
+      var p = this.data.products.filter(item => item.stock < 0)
       if (p && p.length > 0) {
       wx.showModal({
         title: p[0].name,
-        content: '促销库存不能<0',
+        content: '该商品库存不能小于0',
         showCancel: false
       });
 
@@ -443,7 +366,7 @@ Page({
     data.products = this.data.products.map(p => {
       return {
         id: p.id,
-        stock: p.promote_stock > 0 ? p.promote_stock : 0,
+        stock: p.stock,
         size: p.want_size ? p.want_size.size.id : 0
       }
     })
