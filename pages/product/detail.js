@@ -281,9 +281,9 @@ Page({
             }
             console.log('upload detail successfully', data, image)
             photo_ids.push({
-              id: data[0].id,
+              id: data.id,
               index: index + 1,
-              type: data[0].type
+              type: data.type
             })
 
             if (photo_ids.length === images.length) {

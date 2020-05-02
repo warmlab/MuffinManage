@@ -1,5 +1,5 @@
 const theme = {
-  color: '#09BB07',
+  color: '#481A0E',
   error_color: '#e64340'
 }
 

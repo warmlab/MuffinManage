@@ -1,0 +1,74 @@
+.ad-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 100rpx;
+}
+
+.ad-item {
+	display: flex;
+    flex-direction: column;
+    flex: 1;
+	border-bottom: thin solid #e7e7e7;
+	/*border: thin solid #f4f4f4;
+    background-color: #f4f4f4;*/
+	margin-bottom: 2rpx;
+	padding-top: 2rpx;
+	padding-bottom: 2rpx;
+}
+
+.ad-item image {
+    height: 330rpx;
+    border-radius: 20rpx;
+    width: 98%;
+    margin: 10rpx 1%;
+}
+
+.ad-item .desc-info {
+	display: flex;
+    padding: 10rpx;
+    /*font-size: 24rpx;
+    height: 100%;*/
+}
+
+.ad-item .desc-info .title {
+    flex: 1;
+    overflow: hidden;
+    font-size: 36rpx;
+}
+
+.ad-item .desc-info .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.ad-item .desc-info .actions text {
+    font-size: 32rpx;
+    font-weight: lighter;
+    padding: 0 20rpx;
+    font-size: 48rpx;
+    color: #481A0E;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    align-self: flex-end;
+    border-left: 1rpx solid #481a0e;
+}
+
+.ad-item .desc-info .actions text:first-child {
+    border-left: none;
+}
+
+.ads-new {
+    position: fixed;
+    bottom:0;
+    left:0;
+    height: 100rpx;
+    width: 100%;
+    color: #ffffff;
+    background-color: #481A0E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32rpx;
+}

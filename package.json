@@ -1,0 +1,19 @@
+{
+  "name": "muffinmanage",
+  "version": "1.0.0",
+  "description": "小麦芬后台管理小程序",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/warmlab/MuffinManage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/warmlab/MuffinManage/issues"
+  },
+  "homepage": "https://github.com/warmlab/MuffinManage#readme"
+}

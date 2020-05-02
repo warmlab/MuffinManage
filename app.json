@@ -1,14 +1,15 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/shopinfo",
     "pages/product/list",
     "pages/product/detail",
     "pages/address/list",
     "pages/address/detail",
     "pages/promotion/list",
     "pages/promotion/detail",
-    "pages/order/index",
-    "pages/order/detail"
+    "pages/market/ads",
+    "pages/market/ad"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -16,5 +17,8 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
+  "navigateToMiniProgramAppIdList": [
+    "wxf01e1fc0768c59ba"
+  ],
   "sitemapLocation": "sitemap.json"
 }

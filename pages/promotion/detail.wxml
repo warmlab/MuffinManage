@@ -1,39 +1,77 @@
-<form bindsubmit="startDragon" report-submit="true">
+<form bindsubmit="startPromote" report-submit="true">
   <view class="form-line">
-    <text class="title">团购名称</text>
-    <input name="name" value="{{name}}" placeholder="" />
+    <text class="title">促销方式</text>
+    <view class="promotion-area">
+      <view class="checkbox-item" bindtap="promoteTypeChange" data-value="1">
+        <text class="icon {{(promote_type&1)===1?'checked':0}}"><text class="fa fa-check"/></text>
+        <text class="label">今日热卖</text>
+      </view>
+      <view class="checkbox-item" bindtap="promoteTypeChange" data-value="2">
+        <text class="icon {{(promote_type&2)===2?'checked':0}}"><text class="fa fa-check"/></text>
+        <text class="label">今日上新</text>
+      </view>
+      <view class="checkbox-item" bindtap="promoteTypeChange" data-value="4">
+        <text class="icon {{(promote_type&4)===4?'checked':0}}"><text class="fa fa-check"/></text>
+        <text class="label">今日特价</text>
+      </view>
+      <view class="checkbox-item" bindtap="promoteTypeChange" data-value="8">
+        <text class="icon {{(promote_type&8)===8?'checked':0}}"><text class="fa fa-check"/></text>
+        <text class="label">预售</text>
+      </view>
+      <view class="checkbox-item" bindtap="promoteTypeChange" data-value="16">
+        <text class="icon {{(promote_type&16)===16?'checked':0}}"><text class="fa fa-check"/></text>
+        <text class="label">本周推荐</text>
+      </view>
+    </view>
   </view>
   <view class="form-line">
-    <text class="title">详细描述</text>
-    <textarea class="note" name="note" value="{{note}}" maxlength="1024" placeholder="请详细描述下该团购，此内容将显示在团购页面中"></textarea>
+    <text class="title">开始时间</text>
+    <view class="content">
+      <picker mode="date" value="{{from_date}}" class="date" bindchange="timeChange" data-name="from_date">
+        <view class="picker">{{from_date}}</view>
+      </picker>
+      <picker mode="time" value="{{from_time}}" class="time" start="00:00" end="23:59" bindchange="timeChange" data-name="from_time">
+        <view class="picker">{{from_time}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="form-line">
+    <text class="title">结束时间</text>
+    <view class="content">
+      <picker mode="date" value="{{to_date}}" class="date" bindchange="timeChange" data-name="to_date">
+        <view class="picker">{{to_date}}</view>
+      </picker>
+      <picker mode="time" value="{{to_time}}" class="time" start="08:00" end="22:00" bindchange="timeChange" data-name="to_time">
+        <view class="picker">{{to_time}}</view>
+      </picker>
+    </view>
   </view>
   <view class="form-title-line" bindtap="addProducts">
     添加商品
-    <text class="fa fa-plus-circle" />
+    <view class="product-add">+</view>
   </view>
   <view class="item" wx:for="{{products}}" wx:key="id" data-id="{{item.id}}" wx:if="{{!item.is_deleted}}">
     <image class="image" src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" data-index="{{index}}" />
     <view class="summary-area">
       <view class="name-area">
         <view class="name">{{item.name}}</view>
-        <view class="summary">{{item.summary}}</view>
         <block wx:if="{{item.want_size!==undefined && item.want_size}}">
           <view class="price">原价￥{{(item.price+item.want_size.price_plus)/100}}</view>
-          <view class="price red-color">
-            团购价￥{{(item.promote_price+item.want_size.promote_price_plus)/100}}
+          <view class="price">
+            促销价￥{{(item.promote_price+item.want_size.promote_price_plus)/100}}
           </view>
         </block>
         <block wx:else>
           <view class="price">原价￥{{item.price/100}}</view>
           <!-- <view class="price blue-color">会员价￥{{item.member_price/100}}</view> -->
-          <view class="price red-color">团购价￥{{item.promote_price/100}}</view>
+          <view class="price">促销价￥{{item.promote_price/100}}</view>
         </block>
       </view>
       <view style="display: flex; margin-right: 10rpx;">
         <view style="flex: 1;" />
         <view class="amount-area">
           <view class="cut amount-action" bindtap="amountChange" data-value="-1" data-index="{{index}}">-</view>
-          <input class="amount" type="number" placeholder="10" maxlength="5" value="{{item.promote_stock}}" bindblur="amountSet" data-index="{{index}}" />
+          <input class="amount" type="number" maxlength="5" value="{{item.stock}}" bindblur="amountSet" data-index="{{index}}" />
           <view class="add amount-action" bindtap="amountChange" data-value="1" data-index="{{index}}">+</view>
         </view>
       </view>
@@ -45,132 +83,30 @@
     <view class="summary-area">
       <view class="name-area">
         <view class="name">{{item.name}}</view>
-        <view class="summary">{{item.summary}}</view>
         <block wx:if="{{item.want_size!==undefined && item.want_size}}">
           <view class="price">原价￥{{(item.price+item.want_size.price_plus)/100}}</view>
-          <view class="price red-color">
-            团购价￥{{(item.promote_price+item.want_size.promote_price_plus)/100}}
+          <view class="price">
+            促销价￥{{(item.promote_price+item.want_size.promote_price_plus)/100}}
           </view>
         </block>
         <block wx:else>
           <view class="price">原价￥{{item.price/100}}</view>
           <!-- <view class="price blue-color">会员价￥{{item.member_price/100}}</view> -->
-          <view class="price red-color">团购价￥{{item.promote_price/100}}</view>
+          <view class="price">促销价￥{{item.promote_price/100}}</view>
         </block>
       </view>
       <view style="display: flex; margin-right: 10rpx;">
         <view style="flex: 1;" />
         <view class="amount-area">
           <view class="cut amount-action" bindtap="amountChange" data-value="-1" data-index="{{index}}">-</view>
-          <input class="amount" type="number" placeholder="10" maxlength="5" value="{{item.promote_stock}}" bindblur="amountSet" data-index="{{index}}" />
+          <input class="amount" type="number" maxlength="5" value="{{item.stock}}" bindblur="amountSet" data-index="{{index}}" />
           <view class="add amount-action" bindtap="amountChange" data-value="1" data-index="{{index}}">+</view>
         </view>
       </view>
     </view>
   </view>
-  <view class="form-line">
-    <text class="title">购买限制</text>
-    <radio-group class="flex-column" bindchange="productsBindSwitch">
-      <label class="radio row">
-        <radio value="false" checked="{{!binding}}" />
-        参团商品可分别购买
-      </label>
-      <label class="radio row">
-        <radio value="true" checked="{{binding}}" />
-        参团商品须捆绑购买
-      </label>
-    </radio-group>
-  </view>
-  <view class="form-line">
-    <text class="title">截单时间</text>
-    <view class="content">
-      <picker mode="date" value="{{last_order_date}}" class="date" bindchange="timeChange" data-name="last_order_date">
-        <view class="picker">{{last_order_date}}</view>
-      </picker>
-      <picker mode="time" value="{{last_order_time}}" class="time" start="08:00" end="22:00" bindchange="timeChange" data-name="last_order_time">
-        <view class="picker">{{last_order_time}}</view>
-      </picker>
-    </view>
-  </view>
-  <view class="form-line">
-    <text class="title">取货时间</text>
-    <view class="content">
-      <picker mode="date" value="{{from_date}}" class="date" bindchange="timeChange" data-name="from_date">
-        <view class="picker">{{from_date}}</view>
-      </picker>
-      <picker mode="time" value="{{from_time}}" class="time" start="09:00" end="22:00" bindchange="timeChange" data-name="from_time">
-        <view class="picker">{{from_time}}</view>
-      </picker>
-    </view>
-  </view>
-  <view class="form-line">
-    <text class="title">~</text>
-    <view class="content">
-      <picker mode="date" value="{{to_date}}" class="date" bindchange="timeChange" data-name="to_date">
-        <view class="picker">{{to_date}}</view>
-      </picker>
-      <picker mode="time" value="{{to_time}}" class="time" start="09:00" end="22:00" bindchange="timeChange" data-name="to_time">
-        <view class="picker">{{to_time}}</view>
-      </picker>
-    </view>
-  </view>
-  <view class="form-line">
-    <text class="title">取货方式</text>
-    <view class="checkbox-area content">
-      <view class="checkbox-item" wx:for="{{delivery_ways}}" wx:key="value" bindtap="deliveryChange" data-index="{{index}}">
-        <text class="fa fa-check checkbox {{item.checked?'checked':''}}" />
-        <text class="label">{{item.name}}</text>
-      </view>
-    </view>
-  </view>
-  <view class="form-line">
-    <text class="title" bindtap="newAddressPage">取货地点</text>
-    <view class="checkbox-area content">
-      <view class="checkbox-item" bindtap="addressChange" wx:for="{{addresses}}" wx:key="id" data-id="{{item.id}}" data-index="{{index}}">
-        <text class="fa fa-check checkbox {{item.checked?'checked':''}}" />
-        <text class="label">{{item.address}}</text>
-      </view>
-    </view>
-  </view>
-  <view class="form-line" wx:if="{{delivery_ways[1].checked}}">
-    <text class="title">运费: ￥</text>
-    <input name="delivery_fee" placeholder="最低基本运费" maxlength="7" type="digit" value="{{delivery_fee/100}}" />
-  </view>
-  <view class="form-line">
-    <text class="title">付款方式</text>
-    <view class="checkbox-area content">
-      <view class="checkbox-item" wx:for="{{payments}}" wx:key="value" bindtap="paymentChange" data-index="{{index}}">
-        <text class="fa fa-check checkbox {{item.checked?'checked':''}}" />
-        <text class="label">{{item.name}}</text>
-      </view>
-    </view>
-  </view>
-  <view class="form-line">
-    <text class="title">发布时间</text>
-    <radio-group class="flex-column" bindchange="publishChange">
-      <label class="radio row">
-        <radio value="0" checked="{{publish==0}}" />
-        即刻发布
-      </label>
-      <label class="radio row">
-        <radio value="1" checked="{{publish==1}}" />
-        指定日期发布
-      </label>
-    </radio-group>
-  </view>
-  <view class="form-line" wx:if="{{publish==1}}">
-    <text class="title">发布日期</text>
-    <view class="content">
-      <picker mode="date" value="{{publish_date}}" class="date" bindchange="timeChange" data-name="publish_date">
-        <view class="picker">{{publish_date}}</view>
-      </picker>
-      <picker mode="time" value="{{publish_time}}" class="time" start="00:00" end="23:59" bindchange="timeChange" data-name="publish_time">
-        <view class="picker">{{publish_time}}</view>
-      </picker>
-    </view>
-  </view>
   <view style="height: 100rpx;" />
   <button class="bottom" formType="submit" type="primary">
-    {{id===undefined?'开启新的团购接龙':'确认修改'}}
+    {{id===undefined?'提交':'确认修改'}}
   </button>
 </form>

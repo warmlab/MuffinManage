@@ -1,7 +1,5 @@
 import request from './utils/request.js'
-import {
-  getShopInfo
-} from './utils/resource.js'
+import theme from './utils/theme.js'
 
 App({
   onLaunch: function () {
@@ -14,7 +12,9 @@ App({
     // 登录
     this.login().then(userInfo => {
       //that.globalData.userInfo = userInfo
-      getShopInfo()
+      //getShopInfo()
+      wx.setStorageSync('appUserInfo', userInfo)
+
       // 获取用户信息
       wx.getSetting({
         success: res => {
@@ -91,7 +91,8 @@ App({
       var interval = setInterval(function () {
         console.log('in interval')
         var userInfo = wx.getStorageSync('appUserInfo')
-        if (userInfo) {
+        console.log('user info', userInfo)
+        if (!!userInfo) {
           clearInterval(interval)
           resolve(userInfo)
         }

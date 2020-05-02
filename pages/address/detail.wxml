@@ -36,6 +36,12 @@
     </picker>
   </view>
   <view class="form-line">
+    <text class="title">可用状态</text>
+    <switch class="switch" bindchange="changeAvailable" size="small" checked="{{available}}">
+      {{available?'可用':'不可用'}}
+    </switch>
+  </view>
+  <view class="form-line">
     <text class="title">默认选中</text>
     <switch class="switch" bindchange="defaultAddress" size="small" checked="{{checked}}">
       {{checked?'默认选中':'默认不选中'}}

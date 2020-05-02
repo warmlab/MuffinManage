@@ -49,7 +49,7 @@
   height: 30rpx;
   text-align: center;
   font-size: 28rpx;
-  color: #09bb07;
+  color: #481A0E;
   margin: 4rpx 0;
 }
 .price-label .price.original {
@@ -75,8 +75,8 @@
 }
 
 .goods-item .price-box .checkbox.active {
-  border: 1rpx solid #09bb07;
-  background-color: #09bb07;
+  border: 1rpx solid #481A0E;
+  background-color: #481A0E;
 }
 
 .view-bottom {
@@ -98,7 +98,7 @@
 
 .view-bottom text.new {
   width: 20%;
-  background-color: #09bb07;
+  background-color: #481A0E;
 }
 
 .view-bottom text.clear {

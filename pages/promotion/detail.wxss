@@ -1,4 +1,46 @@
 /* pages/promotion/index.wxss */
+.promotion-area {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.promotion-area .checkbox-item {
+  display: flex;
+  padding-top: 8rpx;
+  align-items: center;
+  width: 49%;
+}
+
+.promotion-area .checkbox-item .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  border: 1rpx solid #481a0e;
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 8rpx;
+}
+
+.promotion-area .checkbox-item .icon.checked {
+  background-color: #481a0e;
+}
+
+.product-add {
+  border: 1rpx solid #481a0e;
+  margin-left: 8rpx;
+  border-radius: 4rpx;
+  font-size: 36rpx;
+  color: #481a0e;
+  font-weight: bolder;
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .products {
   display: flex;
   height: 5em;
@@ -8,7 +50,7 @@
 }
 
 .add-btn {
-  color: #09bb07;
+  color: #481A0E;
   margin-left: .15em;
   font-size: 42rpx;
 }
@@ -18,26 +60,28 @@
   display: flex;
   flex-direction: row;
   border-bottom: 1rpx solid #f4f4f4;
-  margin-bottom: 8rpx;
+  padding: 4rpx 0;
 }
 
 .item .remove {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
+  border-radius: 20%;
   height: 44rpx;
   width:44rpx;
   position: absolute;
   right: 10rpx;
-  background-color: #e64340;
-  color: #fff;
+  color: #e64340;
+  border: 1rpx solid #e64340;
   margin-top: 10rpx;
 }
 
 .item .image {
   width: 40%;
   height: 320rpx;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .item .summary-area {

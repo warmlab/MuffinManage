@@ -41,8 +41,8 @@ page {
 
 .nav-bar-scroll .nav-item.item-active {
   background-color: #f5f5f5;
-  color: #09bb07;
-  border-bottom: 4rpx solid #09bb07;
+  color: #481A0E;
+  border-bottom: 4rpx solid #481A0E;
 }
 
 .goods-area {
@@ -99,6 +99,7 @@ page {
   font-size: 28rpx;
   text-align: left;
   padding: 3px 4px;
+
   display: flex;
   align-items: flex-end;
 }
@@ -123,65 +124,25 @@ page {
 }
 
 
-.icon-area {
-  background-color: #fff;
-}
-
-/* this area for user page */
-.icon-area .icon-title {
-  width: 100%;
-  padding: 30rpx 0;
-  border-bottom: 1rpx solid #f5f5f5;
-}
-
-.icon-title text {
-  font-size: 28rpx;
-  margin-left: 40rpx;
-}
-
-.icon-area .icon-body {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 24rpx 0;
-}
-
-.icon-body .icon-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 33%;
-  padding: 20rpx 0;
-}
-
-.icon-body .icon-item .icon {
-  color: #353535cc;
-  font-weight: lighter;
-}
-
-.icon-body .icon-item .label {
-  font-size: 22rpx;
-  margin-top: 10rpx;
-}
-
 /* for form action begin */
 .form-line {
   display:flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  border-bottom: 2rpx solid #f5f5f5;
   padding: 16rpx 0;
 }
 
 .form-line text.title {
-  color: #888888;
-  width: 17%;
-  margin-left:3%;
+  color: #9b9b9b;
+  margin: 0 2%;
+  font-size: 26rpx;
 }
 
 .form-line input {
-  width: 80%;
-  flex: 1;
+  margin: 0 2%;
+  width: 96%;
+  border-bottom: 2rpx solid #f5f5f5;
+  padding: 4rpx 0;
 }
 
 .form-line view.content {
@@ -196,17 +157,19 @@ page {
 }
 
 .form-line textarea {
-  width: 80%;
-  flex: 1;
+  margin: 0 2%;
+  width: 96%;
+  border-bottom: 2rpx solid #f5f5f5;
+  padding: 4rpx 0;
+  height: 100rpx;
 }
 
 .form-line radio-group {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 80%;
   flex: 1;
-  margin: 0;
+  margin: 0 2%;
 }
 
 .form-line radio-group .radio {
@@ -263,10 +226,12 @@ page {
   /*width: 80%;*/
   display: flex;
   flex: 1;
+  margin: 0 2%;
 }
 
 .form-line switch {
   flex: 1;
+  margin: 0 2%;
 }
 
 .form-line .checkbox-area {
@@ -335,8 +300,9 @@ form button.bottom {
   position: fixed;
   bottom: 0;
   z-index: 100;
-  width: 110%;
-  margin-left: -5%;
+  width: 100%;
+  border-radius: 0;
+  background-color: #481a0e;
 }
 
 @import "./fonts.wxss";

@@ -130,12 +130,12 @@
     <text class="fa fa-plus-circle" />
   </view>
   <view class="form-images">
-    <view class="form-image" wx:for="{{images}}" wx:key="">
+    <view class="form-image" wx:for="{{images}}" wx:key="id">
       <image mode="widthFix" src="{{item.path}}" />
       <text data-index="{{index}}" data-source="original" data-type="banner" bindtap="removeImage">✕</text>
       <!--text class="fa fa-times" data-index="{{index}}" data-source="original" data-type="detail" bindtap="removeImage"/-->
     </view>
-    <view class="form-image" wx:for="{{images_choosed}}" wx:key="">
+    <view class="form-image" wx:for="{{images_choosed}}" wx:key="id">
       <image mode="widthFix" src="{{item.path}}" />
       <text data-index="{{index}}" data-source="choosed" data-type="banner" bindtap="removeImage">✕</text>
     </view>
@@ -148,12 +148,12 @@
       <image class="widthFix" style="width: {{detail_width}}; height: {{detail_height}}px; margin: 0 3%;" src="{{detail_image}}" bindload="detailImageLoad"/>
     </view -->
   <view class="form-images">
-    <view class="form-image" wx:for="{{detail_images}}" wx:key="">
+    <view class="form-image" wx:for="{{detail_images}}" wx:key="id">
       <image mode="widthFix" src="{{item.path}}" />
       <!-- text class="far fa-times-circle" data-index="{{index}}" data-source="original" data-type="detail" bindtap="removeImage"/ -->
       <text data-index="{{index}}" data-source="original" data-type="detail" bindtap="removeImage">✕</text>
     </view>
-    <view class="form-image" wx:for="{{detail_images_choosed}}" wx:key="">
+    <view class="form-image" wx:for="{{detail_images_choosed}}" wx:key="id">
       <image mode="widthFix" src="{{item.path}}" />
       <text data-index="{{index}}" data-source="choosed" data-type="detail" bindtap="removeImage">✕</text>
     </view>
