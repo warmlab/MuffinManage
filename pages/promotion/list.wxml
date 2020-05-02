@@ -1,5 +1,5 @@
 <view class="item-list">
-  <view class="item" wx:for="{{promotions}}" wx:key="id" data-id="{{item.id}}">
+  <view class="item" wx:for="{{promotions}}" wx:key="id" bindtouchstart="touchS" bindtouchend="touchE" data-id="{{item.id}}" data-index="{{index}}">
     <view class="item-body" bindtap="toEditDetail" data-id="{{item.id}}">
       <text class="item-head">{{item.name}}</text>
       <view class="item-content">
@@ -19,9 +19,12 @@
       </view>
       <view class="item-time">截单时间：{{item.last_order_time}}</view>
     </view>
-    <view class="item-action">
+    <view class="item-action" wx:if="{{item.action_show}}">
       <text class="fa fa-envelope" style="background-color: #09bb07;" bindtap="exportPromotion" data-id="{{item.id}}" />
       <text style="background-color: #e64340;" bindtap="deletePromotion" data-id="{{item.id}}">删除</text>
+    </view>
+    <view wx:else class="item-action">
+      <text class="fa fa-chevron-right" style="color: #dcd9d9;font-size: 40rpx; font-weight: lighter;" bindtap="toViewOrders" data-id="{{item.id}}" />
     </view>
   </view>
 </view>

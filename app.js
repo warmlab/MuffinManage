@@ -35,6 +35,8 @@ App({
                 }
               }
             })
+          } else {
+            wx.setStorageSync('appUserInfo', userInfo)
           }
         }
       })
@@ -84,8 +86,10 @@ App({
   },
 
   getUserInfo: function () {
+    console.log('to get user info')
     return new Promise((resolve, reject) => {
       var interval = setInterval(function () {
+        console.log('in interval')
         var userInfo = wx.getStorageSync('appUserInfo')
         if (userInfo) {
           clearInterval(interval)

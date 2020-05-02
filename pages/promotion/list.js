@@ -9,9 +9,10 @@ Page({
 	/**
 	 * 页面的初始数据
 	 */
-  data: {
-    base_image_url: config.base_image_url
-  },
+	data: {
+		base_image_url: config.base_image_url,
+		action_show: false
+	},
 
 	updateData: function (that) {
 		wx.showLoading({
@@ -20,9 +21,9 @@ Page({
 		})
 		var that = this;
 		request.get('promotions', {
-      manage: true,
-      limit: 10
-			})
+			manage: true,
+			limit: 10
+		})
 			.then(res => {
 				console.log('promotions', res)
 				that.setData({
@@ -48,13 +49,58 @@ Page({
 		this.updateData()
 	},
 
+	touchS: function (e) {
+		console.log('start', e)
+		if (e.touches.length == 1) {
+			this.setData({
+				//设置触摸起始点水平方向位置
+				startX: e.touches[0].clientX
+			});
+		}
+	},
+
+	touchE: function (e) {
+		console.log('end', e)
+		if (e.changedTouches.length == 1) {
+			//手指移动结束后水平位置
+			var endX = e.changedTouches[0].clientX;
+			//触摸开始与结束，手指移动的距离
+			var disX = this.data.startX - endX;
+			//如果距离小于删除按钮的1/2，不显示删除按钮
+			if (disX > 100) {
+				//获取手指触摸的是哪一项
+				var index = parseInt(e.currentTarget.dataset.index);
+				//更新列表的状态
+				this.data.promotions[index].action_show = true
+				this.setData({
+					promotions: this.data.promotions
+				})
+			} else if (disX < -100) {
+				//获取手指触摸的是哪一项
+				var index = parseInt(e.currentTarget.dataset.index);
+				//更新列表的状态
+				this.data.promotions[index].action_show = false
+				this.setData({
+					promotions: this.data.promotions
+				})
+
+			}
+		}
+	},
+
+	toViewOrders: function (e) {
+		wx.navigateTo({
+			url: `/pages/order/index?promotion=${e.currentTarget.dataset.id}`
+		})
+	},
+
 	exportPromotion: function (e) {
 		wx.showLoading({
 			title: '发送邮件中...'
 		})
 		request.put('promotion', {
-				id: e.currentTarget.dataset.id
-			})
+			id: e.currentTarget.dataset.id
+		})
 			.then(res => {
 				wx.hideLoading()
 				wx.showToast({
@@ -86,8 +132,8 @@ Page({
 				if (res.confirm) {
 
 					request.delete('promotion', {
-							id: e.currentTarget.dataset.id
-						})
+						id: e.currentTarget.dataset.id
+					})
 						.then(res => {
 							console.log('delete promotion successfully', res)
 							that.updateData()

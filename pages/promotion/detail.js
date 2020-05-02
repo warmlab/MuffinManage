@@ -229,9 +229,9 @@ Page({
     //last_order_time: lastOrderTime.toLocaleTimeString('cn-ZH', {hour12: false, hour: '2-digit', minute: '2-digit'}),
   },
 
-  addProduct: function (e) {
+  addProducts: function (e) {
     wx.navigateTo({
-      url: '/pages/product/list?type=promote'
+      url: '/pages/product/list?type=choice'
     });
   },
 

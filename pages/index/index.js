@@ -1,7 +1,3 @@
-import {
-  login
-} from '../../utils/resource.js'
-//index.js
 //获取应用实例
 const app = getApp()
 
@@ -14,6 +10,7 @@ Page({
 
   onLoad: function () {
     app.getUserInfo().then(res => {
+      console.log('aa', res)
       this.setData({
         userInfo: res
       })

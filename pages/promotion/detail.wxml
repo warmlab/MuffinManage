@@ -7,7 +7,7 @@
     <text class="title">详细描述</text>
     <textarea class="note" name="note" value="{{note}}" maxlength="1024" placeholder="请详细描述下该团购，此内容将显示在团购页面中"></textarea>
   </view>
-  <view class="form-title-line" bindtap="addProduct">
+  <view class="form-title-line" bindtap="addProducts">
     添加商品
     <text class="fa fa-plus-circle" />
   </view>

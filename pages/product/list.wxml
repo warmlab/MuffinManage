@@ -10,7 +10,7 @@
         <text class="price original">原价: ￥{{item.price/100}}</text>
         <text class="price">现价: ￥{{item.promote_price/100}}</text>
       </view>
-      <view class="checkbox {{item.checked?'active':''}}" bindtap="goodsCheck" data-id="{{item.id}}" data-index="{{index}}" data-name="{{item.name}}">
+      <view wx:if="{{type!==0}}" class="checkbox {{item.checked?'active':''}}" bindtap="goodsCheck" data-id="{{item.id}}" data-index="{{index}}" data-name="{{item.name}}">
         {{item.checked?item.index:''}}
       </view>
     </view>
@@ -39,7 +39,12 @@
   </view>
 </view>
 <view class="view-bottom">
+  <block wx:if="{{type===0}}">
+  <text class="new" style="width: 100%;" bindtap="toEditDetail" data-code="0">新建</text>
+  </block>
+  <block wx:else>
   <text class="new" bindtap="toEditDetail" data-code="0">新建</text>
   <text class="clear" bindtap="clearSelection">清空已选</text>
   <text class="confirm" bindtap="selectionConfirm">选中</text>
+  </block>
 </view>

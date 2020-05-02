@@ -59,7 +59,7 @@ Page({
   onLoad: function (options) {
     var that = this
     this.setData({
-      type: options.type
+      type: options.type === undefined ? 0 : options.type
     })
     getCategories().then(categories => {
       if (!categories) {
@@ -241,7 +241,7 @@ Page({
     //  'coupon_goods': this.data.goods_checked
     //});
 
-    if (this.data.type === 'coupon' || this.data.type === 'promote') {
+    if (this.data.type === 'coupon' || this.data.type === 'choice') {
       var pages = getCurrentPages();
       var prePage = pages[pages.length - 2];
 
