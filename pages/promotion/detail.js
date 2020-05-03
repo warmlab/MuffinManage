@@ -103,7 +103,7 @@ Page({
         var p = ele.product
         p.is_deleted = ele.is_deleted
         //p.promote_stock = ele.promote_stock < 0 ? 0 : ele.promote_stock
-        p.stock = ele.stock <= 0 ? 36 : ele.stock
+        //p.stock = ele.stock <= 0 ? 36 : ele.stock
 
         //for (var ps of p.sizes) {
         //  if (ps.size.id === ele.size.id) {
